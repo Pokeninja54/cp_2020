@@ -115,3 +115,4 @@ python test.py --dataroot ../4500allDirToNW --name 4500_allDirToNW_pix2pix d--mo
 ## Train new classification model
 
 The Jupyter Notebook `LightDirectionClassifier.ipynb` includes the data preparation, training and evaluation of the light direction classifier.
+# final_project
