@@ -15,6 +15,7 @@ import numpy as np
 from PIL import Image
 from torchvision import transforms
 from pathlib import Path
+import pickle
 
 directions = {0: 'N', 1: 'NE', 2: 'E', 3: 'SE', 4: 'S', 5: 'SW', 6: 'W', 7: 'NW'}
 
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     opt = argparse.Namespace(aspect_ratio=1.0,
                              batch_size=1,
                              #checkpoints_dir='../mods',
-                             checkpoints_dir='checkpoints/',
+                             checkpoints_dir='checkpointsLAB/',
                              crop_size=256,
                              dataroot=args.input,
                              dataset_mode='single',
@@ -114,7 +115,7 @@ if __name__ == '__main__':
                              output_nc=3,
                              phase='test',
                              preprocess='resize_and_crop',
-                             results_dir='./results/',
+                             results_dir='./resultsLAB/',
                              suffix='',
                              num_threads=0,   # test code only supports num_threads = 1
                              serial_batches=True,  # disable data shuffling; comment this line if results on randomly chosen images are needed.
@@ -131,6 +132,10 @@ if __name__ == '__main__':
 
     if opt.eval:
         model.eval()
+    print("Loading the dictionary...")
+    with open('filename_to_pic.pkl', 'rb') as f:
+        filename_to_pic = pickle.load(f)
+    print("Finished loading!")
     for i, data in enumerate(dataset):
         image = data['A']
         with torch.no_grad():
@@ -139,6 +144,8 @@ if __name__ == '__main__':
         output = tensor2im(output)
         
         filename = '/'.join(data['A_paths'][0].split('/')[1:])
+        print("The filename is", filename)
+        exit()
         output_path = os.path.join(args.output, filename)
         save_image(output, output_path)
 
