@@ -1,3 +1,11 @@
+Purpose of this fork is to experiment with training the relighting model under different color space formats. Rather than using RGB color space,
+we will instead train in LAB color space, where we will only use the L channel to train and then concatenate with the original AB channels
+in testing to see the results. This is because the L channel is independent of the AB channels in encoding color-space information and instead
+only controls lighting, so the goal is to see the results of only utilizing the color channel. 
+
+Derived from below:
+________
+
 # 2D Image Relighting with Image-to-Image Translation
 Computational Photography, Spring 2020, EPFL
 
